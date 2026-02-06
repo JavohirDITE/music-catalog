@@ -1,10 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY MusicCatalog.Api/*.csproj ./MusicCatalog.Api/
+COPY . .
 RUN dotnet restore MusicCatalog.Api/MusicCatalog.Api.csproj
-COPY MusicCatalog.Api/. ./MusicCatalog.Api/
-WORKDIR /src/MusicCatalog.Api
-RUN dotnet publish -c Release -o /app/out
+RUN dotnet publish MusicCatalog.Api/MusicCatalog.Api.csproj -c Release -o /app/out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
